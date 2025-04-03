@@ -1,7 +1,6 @@
 FROM python:3.12
 
 ARG PORT
-ENV PORT=$PORT
 
 WORKDIR /app
 
@@ -18,6 +17,7 @@ WORKDIR /app/backend
 
 RUN python manage.py migrate
 
+ENV PORT=$PORT
 EXPOSE $PORT
 
 CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:$PORT"]
