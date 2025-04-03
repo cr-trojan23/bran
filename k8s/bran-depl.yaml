@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bran
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bran
+  template:
+    metadata:
+      labels:
+        app: bran
+    spec:
+      containers:
+        - name: bran
+          image: docker.io/crtrojan23/bran:latest
+          ports:
+            - containerPort: 9999
+          env:
+            - name: ALLOWED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  name: bran-config 
+                  key: ALLOWED_HOSTS
+            - name: DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: bran-config 
+                  key: DEBUG
+            - name: TIME_ZONE 
+              valueFrom:
+                configMapKeyRef:
+                  name: bran-config 
+                  key: TIME_ZONE
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: bran-django-secret
+                  key: SECRET_KEY
