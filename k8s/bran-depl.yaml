@@ -15,6 +15,13 @@ spec:
       containers:
         - name: bran
           image: docker.io/crtrojan23/bran:latest
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
           ports:
             - containerPort: 9999
           env:
